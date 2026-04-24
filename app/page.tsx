@@ -21,6 +21,37 @@ export default function Home() {
         { value: "2000+", label: "студент" },
         { value: "96%", label: "жұмысқа орналасу" },
       ],
+      chooseUsTitle: "Әр студент әрқашан назар орталығында",
+      chooseUsFeatures: [
+        {
+          icon: "✓",
+          title: "Сапалы білім",
+          description: "нарықта сұранысқа ие түлектер, өзін-өзі дамытуға қабілетті",
+        },
+        {
+          icon: "✈",
+          title: "Шетелде тәжірибе",
+          description: "мәдениетаралық коммуникация дағдылары",
+        },
+        {
+          icon: "★",
+          title: "100% жұмысқа орналасу",
+          description: "серіктес компанияларда жұмыс орны",
+        },
+        {
+          icon: "↑",
+          title: "Кәсіби өсу",
+          description: "мансаптық даму мүмкіндігі",
+        },
+      ],
+      aboutTitle: "Біз туралы",
+      aboutText:
+        "Колледж еңбек нарығында сұранысқа ие, бәсекеге қабілетті мамандарды даярлайды. Біз заманауи теорияны практикалық тәжірибемен ұштастырып, нақты экономика үшін кәсіби кадрлар қалыптастырамыз.",
+      aboutFeatures: [
+        "🎓 Профессиональные преподаватели / Кәсіби оқытушылар",
+        "🤝 Практика в компаниях / Компанияларда тәжірибе",
+        "📜 Государственный диплом / Мемлекеттік диплом",
+      ],
       programsTitle: "Біздің мамандықтар",
       programs: [
         {
@@ -72,6 +103,13 @@ export default function Home() {
       ctaTitle: "Мансапқа сенімді қадам жасаңыз",
       ctaSubtitle: "Қабылдау ашық. Бүгіннен бастап болашағыңызды бірге жоспарлайық.",
       ctaButton: "Өтінім беру",
+      formTitle: "Өтінім қалдыру",
+      formSubtitle: "Біз сізбен хабарласамыз",
+      formNamePlaceholder: "Аты-жөні",
+      formPhonePlaceholder: "Телефон нөмірі",
+      formProgramPlaceholder: "Мамандықты таңдаңыз",
+      formPrograms: ["Туризм", "Тамақтандыру технологиясы", "Қонақжайлылық", "IT", "Дизайн", "Сауда және маркетинг"],
+      formSubmit: "Жіберу",
       footer: "© 2026 Сервис және туризм колледжі. Барлық құқықтар қорғалған.",
     },
     ru: {
@@ -86,6 +124,37 @@ export default function Home() {
         { value: "15", label: "специальностей" },
         { value: "2000+", label: "студентов" },
         { value: "96%", label: "трудоустройство" },
+      ],
+      chooseUsTitle: "Каждый студент всегда в центре внимания",
+      chooseUsFeatures: [
+        {
+          icon: "✓",
+          title: "Качественное образование",
+          description: "востребованные выпускники, способные к саморазвитию",
+        },
+        {
+          icon: "✈",
+          title: "Стажировка зарубежом",
+          description: "развитие навыков межкультурной коммуникации",
+        },
+        {
+          icon: "★",
+          title: "100% трудоустройство",
+          description: "конкурентоспособные выпускники для работодателей",
+        },
+        {
+          icon: "↑",
+          title: "Профессиональный рост",
+          description: "возможность карьерного роста",
+        },
+      ],
+      aboutTitle: "О нас",
+      aboutText:
+        "Колледж готовит конкурентоспособных специалистов, востребованных на рынке труда. Мы объединяем современную теоретическую подготовку с практическим опытом, формируя профессионалов для реальной экономики.",
+      aboutFeatures: [
+        "🎓 Профессиональные преподаватели / Кәсіби оқытушылар",
+        "🤝 Практика в компаниях / Компанияларда тәжірибе",
+        "📜 Государственный диплом / Мемлекеттік диплом",
       ],
       programsTitle: "Наши специальности",
       programs: [
@@ -140,6 +209,13 @@ export default function Home() {
       ctaTitle: "Сделайте уверенный шаг к карьере",
       ctaSubtitle: "Прием открыт. Начните путь к успешному будущему уже сегодня.",
       ctaButton: "Подать заявку",
+      formTitle: "Оставить заявку",
+      formSubtitle: "Мы свяжемся с вами",
+      formNamePlaceholder: "Ваше имя",
+      formPhonePlaceholder: "Номер телефона",
+      formProgramPlaceholder: "Выберите специальность",
+      formPrograms: ["Туризм", "Технология питания", "Гостеприимство", "IT", "Дизайн", "Торговля и маркетинг"],
+      formSubmit: "Отправить",
       footer: "© 2026 Колледж сервиса и туризма. Все права защищены.",
     },
   } as const;
@@ -158,8 +234,8 @@ export default function Home() {
     >
       <nav
         style={{
-          backgroundColor: "#0f2a66",
-          color: "#ffffff",
+          backgroundColor: "#ffffff",
+          color: "#000000",
           padding: "18px 0",
           boxShadow: "0 4px 16px rgba(15, 42, 102, 0.25)",
         }}
@@ -177,7 +253,19 @@ export default function Home() {
             flexWrap: "wrap",
           }}
         >
-          <div style={{ fontSize: "24px", fontWeight: 700, letterSpacing: "0.2px" }}>{t.logo}</div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              fontSize: "24px",
+              fontWeight: 700,
+              letterSpacing: "0.2px",
+            }}
+          >
+            <img src="/logo_college_1png.png" alt="College logo" style={{ height: "50px", width: "auto" }} />
+            <span>{t.logo}</span>
+          </div>
           <div
             style={{
               display: "flex",
@@ -199,7 +287,7 @@ export default function Home() {
               }}
             >
               {t.nav.map((link) => (
-                <a key={link} href="#" style={{ color: "#ffffff", textDecoration: "none" }}>
+                <a key={link} href="#" style={{ color: "#000000", textDecoration: "none" }}>
                   {link}
                 </a>
               ))}
@@ -207,13 +295,13 @@ export default function Home() {
             <button
               onClick={() => setLanguage(language === "kz" ? "ru" : "kz")}
               style={{
-                border: "1px solid rgba(255, 255, 255, 0.55)",
+                border: "1px solid #1f2937",
                 borderRadius: "9999px",
                 padding: "8px 14px",
                 fontSize: "13px",
                 fontWeight: 700,
-                color: "#ffffff",
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                color: "#000000",
+                backgroundColor: "transparent",
                 cursor: "pointer",
               }}
             >
@@ -226,7 +314,9 @@ export default function Home() {
       <section
         style={{
           width: "100%",
-          background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%)",
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/orig.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           color: "#ffffff",
           padding: "96px 24px",
           textAlign: "center",
@@ -256,6 +346,7 @@ export default function Home() {
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "14px", flexWrap: "wrap" }}>
             <button
+              onClick={() => document.getElementById("application-form").scrollIntoView({ behavior: "smooth" })}
               style={{
                 border: "none",
                 borderRadius: "9999px",
@@ -316,6 +407,128 @@ export default function Home() {
               <div style={{ fontSize: "16px", color: "#475569", fontWeight: 500 }}>{item.label}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section
+        style={{
+          backgroundColor: "#ffffff",
+          padding: "0 24px 72px 24px",
+          borderTop: "1px solid #f97316",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1100px",
+            margin: "0 auto",
+            overflow: "hidden",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#fdf6ec",
+              color: "#0f172a",
+              padding: "52px 36px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <h2 style={{ margin: 0, fontSize: "clamp(34px, 4.2vw, 50px)", lineHeight: 1.15, fontWeight: 800 }}>
+              {t.chooseUsTitle}
+            </h2>
+          </div>
+          <div style={{ backgroundColor: "#ffffff", padding: "36px 34px" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gap: "26px 24px",
+              }}
+            >
+              {t.chooseUsFeatures.map((feature) => (
+                <div
+                  key={feature.title}
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderRadius: "0",
+                    padding: "2px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "46px",
+                      height: "46px",
+                      borderRadius: "9999px",
+                      backgroundColor: "#f97316",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "12px",
+                    }}
+                  >
+                    <span style={{ color: "#ffffff", fontSize: "22px", fontWeight: "bold" }}>{feature.icon}</span>
+                  </div>
+                  <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "#0f172a", fontWeight: 700 }}>
+                    {feature.title}
+                  </h3>
+                  <p style={{ margin: 0, color: "#475569", lineHeight: 1.6, fontSize: "15px" }}>
+                    {feature.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        style={{
+          backgroundColor: "#eaf4ff",
+          padding: "72px 24px",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ maxWidth: "980px", margin: "0 auto" }}>
+          <h2 style={{ margin: "0 0 16px 0", fontSize: "34px", color: "#0f172a" }}>{t.aboutTitle}</h2>
+          <p
+            style={{
+              margin: "0 auto 34px auto",
+              maxWidth: "860px",
+              fontSize: "18px",
+              lineHeight: 1.75,
+              color: "#334155",
+            }}
+          >
+            {t.aboutText}
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "18px",
+            }}
+          >
+            {t.aboutFeatures.map((feature) => (
+              <div
+                key={feature}
+                style={{
+                  backgroundColor: "#ffffff",
+                  border: "1px solid #cfe3ff",
+                  borderRadius: "16px",
+                  padding: "22px 18px",
+                  boxShadow: "0 10px 24px rgba(30, 58, 138, 0.08)",
+                  fontSize: "17px",
+                  fontWeight: 600,
+                  color: "#1e3a8a",
+                }}
+              >
+                {feature}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -382,24 +595,87 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ backgroundColor: "#1d4ed8", padding: "54px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", color: "#ffffff", textAlign: "center" }}>
-          <h2 style={{ margin: "0 0 12px 0", fontSize: "34px", fontWeight: 700 }}>{t.ctaTitle}</h2>
-          <p style={{ margin: "0 0 24px 0", fontSize: "18px", opacity: 0.95 }}>{t.ctaSubtitle}</p>
-          <button
-            style={{
-              border: "none",
-              borderRadius: "9999px",
-              backgroundColor: "#ffffff",
-              color: "#1d4ed8",
-              padding: "12px 28px",
-              fontSize: "16px",
-              fontWeight: 700,
-              cursor: "pointer",
-            }}
-          >
-            {t.ctaButton}
-          </button>
+      <section id="application-form" style={{ backgroundColor: "#ffffff", padding: "64px 24px" }}>
+        <div
+          style={{
+            maxWidth: "500px",
+            margin: "0 auto",
+            backgroundColor: "#ffffff",
+            border: "1px solid #e2e8f0",
+            borderRadius: "16px",
+            padding: "30px 24px",
+            boxShadow: "0 12px 28px rgba(15, 23, 42, 0.1)",
+            textAlign: "center",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px 0", fontSize: "30px", color: "#0f172a", fontWeight: 700 }}>{t.formTitle}</h2>
+          <p style={{ margin: "0 0 24px 0", fontSize: "16px", color: "#475569" }}>{t.formSubtitle}</p>
+          <form style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+            <input
+              type="text"
+              placeholder={t.formNamePlaceholder}
+              style={{
+                width: "100%",
+                border: "1px solid #cbd5e1",
+                borderRadius: "10px",
+                padding: "12px 14px",
+                fontSize: "15px",
+                color: "#0f172a",
+                outline: "none",
+              }}
+            />
+            <input
+              type="text"
+              placeholder={t.formPhonePlaceholder}
+              style={{
+                width: "100%",
+                border: "1px solid #cbd5e1",
+                borderRadius: "10px",
+                padding: "12px 14px",
+                fontSize: "15px",
+                color: "#0f172a",
+                outline: "none",
+              }}
+            />
+            <select
+              defaultValue=""
+              style={{
+                width: "100%",
+                border: "1px solid #cbd5e1",
+                borderRadius: "10px",
+                padding: "12px 14px",
+                fontSize: "15px",
+                color: "#0f172a",
+                outline: "none",
+                backgroundColor: "#ffffff",
+              }}
+            >
+              <option value="" disabled>
+                {t.formProgramPlaceholder}
+              </option>
+              {t.formPrograms.map((program) => (
+                <option key={program} value={program}>
+                  {program}
+                </option>
+              ))}
+            </select>
+            <button
+              type="submit"
+              style={{
+                marginTop: "6px",
+                border: "none",
+                borderRadius: "10px",
+                padding: "13px 16px",
+                fontSize: "16px",
+                fontWeight: 700,
+                color: "#ffffff",
+                backgroundColor: "#1d4ed8",
+                cursor: "pointer",
+              }}
+            >
+              {t.formSubmit}
+            </button>
+          </form>
         </div>
       </section>
 
