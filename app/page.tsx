@@ -346,7 +346,7 @@ export default function Home() {
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "14px", flexWrap: "wrap" }}>
             <button
-              onClick={() => document.getElementById("application-form").scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.getElementById("application-form")?.scrollIntoView({ behavior: "smooth" })}
               style={{
                 border: "none",
                 borderRadius: "9999px",
