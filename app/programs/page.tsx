@@ -96,6 +96,13 @@ export default function ProgramsPage() {
         minHeight: "100vh",
       }}
     >
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+      <div style={{ animation: "fadeIn 0.6s ease-out" }}>
       <nav
         style={{
           backgroundColor: "#ffffff",
@@ -194,6 +201,7 @@ export default function ProgramsPage() {
           {t.back}
         </a>
       </main>
+      </div>
     </div>
   );
 }

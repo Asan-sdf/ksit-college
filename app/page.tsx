@@ -1,20 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type Language = "kz" | "ru";
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>("kz");
 
+  useEffect(() => {
+    const revealSections = Array.from(
+      document.querySelectorAll<HTMLElement>(".reveal-section")
+    );
+
+    const observer = new IntersectionObserver(
+      (entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          const section = entry.target as HTMLElement;
+          section.classList.add("is-visible");
+          currentObserver.unobserve(section);
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    revealSections.forEach((section, index) => {
+      section.style.animationDelay = `${index * 0.1}s`;
+      observer.observe(section);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const content = {
     kz: {
       logo: "Сервис және туризм колледжі",
-      nav: ["Мамандықтар", "Студенттік өмір", "Байланыс"],
+      nav: ["Мамандықтар", "Студенттік өмір"],
       heroTitle: "Болашағыңызды бізбен бірге құр",
       heroSubtitle: "Заманауи білім, практикалық дағдылар және табысты мансап",
-      heroPrimaryButton: "Құжат тапсыру",
-      heroSecondaryButton: "Мамандықтарды көру",
+      heroContactButton: "Байланыс",
       stats: [
         { value: "20+", label: "жыл тәжірибе" },
         { value: "15", label: "мамандық" },
@@ -103,22 +135,13 @@ export default function Home() {
       ctaTitle: "Мансапқа сенімді қадам жасаңыз",
       ctaSubtitle: "Қабылдау ашық. Бүгіннен бастап болашағыңызды бірге жоспарлайық.",
       ctaButton: "Өтінім беру",
-      formTitle: "Өтінім қалдыру",
-      formSubtitle: "Біз сізбен хабарласамыз",
-      formNamePlaceholder: "Аты-жөні",
-      formPhonePlaceholder: "Телефон нөмірі",
-      formProgramPlaceholder: "Мамандықты таңдаңыз",
-      formPrograms: ["Туризм", "Тамақтандыру технологиясы", "Қонақжайлылық", "IT", "Дизайн", "Сауда және маркетинг"],
-      formSubmit: "Жіберу",
-      footer: "© 2026 Сервис және туризм колледжі. Барлық құқықтар қорғалған.",
     },
     ru: {
       logo: "Колледж сервиса и туризма",
-      nav: ["Специальности", "Студенческая жизнь", "Контакты"],
+      nav: ["Специальности", "Студенческая жизнь"],
       heroTitle: "Создай своё будущее вместе с нами",
       heroSubtitle: "Современное образование, практические навыки и успешная карьера",
-      heroPrimaryButton: "Подать документы",
-      heroSecondaryButton: "Смотреть специальности",
+      heroContactButton: "Контакты",
       stats: [
         { value: "20+", label: "лет опыта" },
         { value: "15", label: "специальностей" },
@@ -209,14 +232,6 @@ export default function Home() {
       ctaTitle: "Сделайте уверенный шаг к карьере",
       ctaSubtitle: "Прием открыт. Начните путь к успешному будущему уже сегодня.",
       ctaButton: "Подать заявку",
-      formTitle: "Оставить заявку",
-      formSubtitle: "Мы свяжемся с вами",
-      formNamePlaceholder: "Ваше имя",
-      formPhonePlaceholder: "Номер телефона",
-      formProgramPlaceholder: "Выберите специальность",
-      formPrograms: ["Туризм", "Технология питания", "Гостеприимство", "IT", "Дизайн", "Торговля и маркетинг"],
-      formSubmit: "Отправить",
-      footer: "© 2026 Колледж сервиса и туризма. Все права защищены.",
     },
   } as const;
 
@@ -232,6 +247,27 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes revealUp {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal-section {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+
+        .reveal-section.is-visible {
+          animation: revealUp 0.7s ease-out forwards;
+        }
+      `}</style>
+      <div style={{ animation: "fadeIn 0.6s ease-out" }}>
       <nav
         style={{
           backgroundColor: "#ffffff",
@@ -355,41 +391,29 @@ export default function Home() {
             {t.heroSubtitle}
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "14px", flexWrap: "wrap" }}>
-            <button
-              onClick={() => document.getElementById("application-form")?.scrollIntoView({ behavior: "smooth" })}
+            <Link
+              href="/contact"
               style={{
-                border: "none",
+                textDecoration: "none",
+                border: "1px solid #ffffff",
                 borderRadius: "9999px",
                 padding: "13px 28px",
                 fontSize: "16px",
                 fontWeight: 700,
-                backgroundColor: "#ffffff",
-                color: "#1e3a8a",
-                cursor: "pointer",
-                boxShadow: "0 10px 20px rgba(15, 23, 42, 0.2)",
-              }}
-            >
-              {t.heroPrimaryButton}
-            </button>
-            <button
-              style={{
-                border: "1px solid rgba(255, 255, 255, 0.65)",
-                borderRadius: "9999px",
-                padding: "13px 28px",
-                fontSize: "16px",
-                fontWeight: 700,
-                backgroundColor: "rgba(255, 255, 255, 0.12)",
+                backgroundColor: "transparent",
                 color: "#ffffff",
-                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              {t.heroSecondaryButton}
-            </button>
+              {t.heroContactButton}
+            </Link>
           </div>
         </div>
       </section>
 
-      <section style={{ backgroundColor: "#ffffff", padding: "58px 24px" }}>
+      <section className="reveal-section" style={{ backgroundColor: "#ffffff", padding: "58px 24px" }}>
         <div
           style={{
             maxWidth: "1100px",
@@ -421,6 +445,7 @@ export default function Home() {
       </section>
 
       <section
+        className="reveal-section"
         style={{
           backgroundColor: "#ffffff",
           padding: "0 24px 72px 24px",
@@ -495,6 +520,7 @@ export default function Home() {
       </section>
 
       <section
+        className="reveal-section"
         style={{
           backgroundColor: "#eaf4ff",
           padding: "72px 24px",
@@ -542,7 +568,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={{ backgroundColor: "#ffffff", padding: "72px 24px" }}>
+      <section className="reveal-section" style={{ backgroundColor: "#ffffff", padding: "72px 24px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <h2 style={{ textAlign: "center", fontSize: "34px", margin: "0 0 36px 0", color: "#0f172a" }}>
             {t.newsTitle}
@@ -572,96 +598,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <section id="application-form" style={{ backgroundColor: "#ffffff", padding: "64px 24px" }}>
-        <div
-          style={{
-            maxWidth: "500px",
-            margin: "0 auto",
-            backgroundColor: "#ffffff",
-            border: "1px solid #e2e8f0",
-            borderRadius: "16px",
-            padding: "30px 24px",
-            boxShadow: "0 12px 28px rgba(15, 23, 42, 0.1)",
-            textAlign: "center",
-          }}
-        >
-          <h2 style={{ margin: "0 0 10px 0", fontSize: "30px", color: "#0f172a", fontWeight: 700 }}>{t.formTitle}</h2>
-          <p style={{ margin: "0 0 24px 0", fontSize: "16px", color: "#475569" }}>{t.formSubtitle}</p>
-          <form style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-            <input
-              type="text"
-              placeholder={t.formNamePlaceholder}
-              style={{
-                width: "100%",
-                border: "1px solid #cbd5e1",
-                borderRadius: "10px",
-                padding: "12px 14px",
-                fontSize: "15px",
-                color: "#0f172a",
-                outline: "none",
-              }}
-            />
-            <input
-              type="text"
-              placeholder={t.formPhonePlaceholder}
-              style={{
-                width: "100%",
-                border: "1px solid #cbd5e1",
-                borderRadius: "10px",
-                padding: "12px 14px",
-                fontSize: "15px",
-                color: "#0f172a",
-                outline: "none",
-              }}
-            />
-            <select
-              defaultValue=""
-              style={{
-                width: "100%",
-                border: "1px solid #cbd5e1",
-                borderRadius: "10px",
-                padding: "12px 14px",
-                fontSize: "15px",
-                color: "#0f172a",
-                outline: "none",
-                backgroundColor: "#ffffff",
-              }}
-            >
-              <option value="" disabled>
-                {t.formProgramPlaceholder}
-              </option>
-              {t.formPrograms.map((program) => (
-                <option key={program} value={program}>
-                  {program}
-                </option>
-              ))}
-            </select>
-            <button
-              type="submit"
-              style={{
-                marginTop: "6px",
-                border: "none",
-                borderRadius: "10px",
-                padding: "13px 16px",
-                fontSize: "16px",
-                fontWeight: 700,
-                color: "#ffffff",
-                backgroundColor: "#1d4ed8",
-                cursor: "pointer",
-              }}
-            >
-              {t.formSubmit}
-            </button>
-          </form>
-        </div>
-      </section>
-
-      <footer style={{ backgroundColor: "#0f172a", color: "#cbd5e1", padding: "30px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", textAlign: "center", fontSize: "15px" }}>
-          {t.footer}
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }
