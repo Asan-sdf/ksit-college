@@ -10,7 +10,7 @@ export default function Home() {
   const content = {
     kz: {
       logo: "Сервис және туризм колледжі",
-      nav: ["Басты бет", "Мамандықтар", "Қабылдау", "Студенттік өмір", "Байланыс"],
+      nav: ["Мамандықтар", "Студенттік өмір", "Байланыс"],
       heroTitle: "Болашағыңызды бізбен бірге құр",
       heroSubtitle: "Заманауи білім, практикалық дағдылар және табысты мансап",
       heroPrimaryButton: "Құжат тапсыру",
@@ -114,7 +114,7 @@ export default function Home() {
     },
     ru: {
       logo: "Колледж сервиса и туризма",
-      nav: ["Главная", "Специальности", "Поступление", "Студенческая жизнь", "Контакты"],
+      nav: ["Специальности", "Студенческая жизнь", "Контакты"],
       heroTitle: "Создай своё будущее вместе с нами",
       heroSubtitle: "Современное образование, практические навыки и успешная карьера",
       heroPrimaryButton: "Подать документы",
@@ -287,7 +287,17 @@ export default function Home() {
               }}
             >
               {t.nav.map((link) => (
-                <a key={link} href="#" style={{ color: "#000000", textDecoration: "none" }}>
+                <a
+                  key={link}
+                  href={link === "Мамандықтар" || link === "Специальности" ? "/programs" : "#"}
+                  style={{
+                    color: "#000000",
+                    textDecoration: "none",
+                    border: "1px solid #1e3a8a",
+                    borderRadius: "20px",
+                    padding: "6px 14px",
+                  }}
+                >
                   {link}
                 </a>
               ))}
@@ -526,38 +536,6 @@ export default function Home() {
                 }}
               >
                 {feature}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section style={{ backgroundColor: "#f1f5f9", padding: "74px 24px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <h2 style={{ textAlign: "center", fontSize: "34px", margin: "0 0 40px 0", color: "#0f172a" }}>
-            {t.programsTitle}
-          </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: "22px",
-            }}
-          >
-            {t.programs.map((program) => (
-              <div
-                key={program.title}
-                style={{
-                  backgroundColor: "#ffffff",
-                  borderRadius: "16px",
-                  padding: "24px",
-                  border: "1px solid #e2e8f0",
-                  boxShadow: "0 10px 24px rgba(15, 23, 42, 0.06)",
-                }}
-              >
-                <div style={{ fontSize: "30px", marginBottom: "12px" }}>{program.icon}</div>
-                <h3 style={{ margin: "0 0 10px 0", fontSize: "20px", color: "#0f172a" }}>{program.title}</h3>
-                <p style={{ margin: 0, color: "#475569", lineHeight: 1.7 }}>{program.description}</p>
               </div>
             ))}
           </div>
