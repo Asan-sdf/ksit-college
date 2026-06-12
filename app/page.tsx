@@ -1,88 +1,51 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Language = "kz" | "ru";
+
+type NavItem = {
+  label: string;
+  href: string;
+};
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>("kz");
 
-  useEffect(() => {
-    const revealSections = Array.from(
-      document.querySelectorAll<HTMLElement>(".reveal-section")
-    );
-
-    const observer = new IntersectionObserver(
-      (entries, currentObserver) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
-          const section = entry.target as HTMLElement;
-          section.classList.add("is-visible");
-          currentObserver.unobserve(section);
-        });
-      },
-      {
-        threshold: 0.2,
-      }
-    );
-
-    revealSections.forEach((section, index) => {
-      section.style.animationDelay = `${index * 0.1}s`;
-      observer.observe(section);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   const content = {
     kz: {
       logo: "Сервис және туризм колледжі",
-      nav: ["Мамандықтар", "Студенттік өмір"],
+      nav: [
+        { label: "Басты бет", href: "#home" },
+        { label: "Мамандықтар", href: "#programs" },
+        { label: "Қабылдау", href: "#admission" },
+        { label: "Студенттік өмір", href: "#student-life" },
+        { label: "Байланыс", href: "#contacts" },
+      ] as NavItem[],
       heroTitle: "Болашағыңызды бізбен бірге құр",
       heroSubtitle: "Заманауи білім, практикалық дағдылар және табысты мансап",
-      heroContactButton: "Байланыс",
+      heroPrimaryButton: "Құжат тапсыру",
+      heroSecondaryButton: "Мамандықтарды көру",
+      admissionTitle: "Қабылдау ережелері",
+      admission: [
+        "Құжат қабылдау: 20 маусым - 25 тамыз",
+        "Онлайн және офлайн форматта өтінім тапсыруға болады",
+        "Грант және ақылы бөлім бойынша кеңес қолжетімді",
+      ],
+      studentLifeTitle: "Студенттік өмір",
+      studentLifeText:
+        "Клубтар, волонтерлік жобалар, кәсіби байқаулар және серіктес ұйымдардағы тағылымдамалар арқылы студенттер жан-жақты дамиды.",
+      contactsTitle: "Бізбен байланыс",
+      contacts: {
+        phone: "+7 (700) 123-45-67",
+        email: "info@ksit-college.kz",
+        address: "Талдықорған қ., білім беру ауданы 12",
+      },
       stats: [
         { value: "20+", label: "жыл тәжірибе" },
         { value: "15", label: "мамандық" },
         { value: "2000+", label: "студент" },
         { value: "96%", label: "жұмысқа орналасу" },
-      ],
-      chooseUsTitle: "Әр студент әрқашан назар орталығында",
-      chooseUsFeatures: [
-        {
-          icon: "✓",
-          title: "Сапалы білім",
-          description: "нарықта сұранысқа ие түлектер, өзін-өзі дамытуға қабілетті",
-        },
-        {
-          icon: "✈",
-          title: "Шетелде тәжірибе",
-          description: "мәдениетаралық коммуникация дағдылары",
-        },
-        {
-          icon: "★",
-          title: "100% жұмысқа орналасу",
-          description: "серіктес компанияларда жұмыс орны",
-        },
-        {
-          icon: "↑",
-          title: "Кәсіби өсу",
-          description: "мансаптық даму мүмкіндігі",
-        },
-      ],
-      aboutTitle: "Біз туралы",
-      aboutText:
-        "Колледж еңбек нарығында сұранысқа ие, бәсекеге қабілетті мамандарды даярлайды. Біз заманауи теорияны практикалық тәжірибемен ұштастырып, нақты экономика үшін кәсіби кадрлар қалыптастырамыз.",
-      aboutFeatures: [
-        "🎓 Профессиональные преподаватели / Кәсіби оқытушылар",
-        "🤝 Практика в компаниях / Компанияларда тәжірибе",
-        "📜 Государственный диплом / Мемлекеттік диплом",
       ],
       programsTitle: "Біздің мамандықтар",
       programs: [
@@ -135,49 +98,41 @@ export default function Home() {
       ctaTitle: "Мансапқа сенімді қадам жасаңыз",
       ctaSubtitle: "Қабылдау ашық. Бүгіннен бастап болашағыңызды бірге жоспарлайық.",
       ctaButton: "Өтінім беру",
+      footer: "© 2026 Сервис және туризм колледжі. Барлық құқықтар қорғалған.",
     },
     ru: {
       logo: "Колледж сервиса и туризма",
-      nav: ["Специальности", "Студенческая жизнь"],
+      nav: [
+        { label: "Главная", href: "#home" },
+        { label: "Специальности", href: "#programs" },
+        { label: "Поступление", href: "#admission" },
+        { label: "Студенческая жизнь", href: "#student-life" },
+        { label: "Контакты", href: "#contacts" },
+      ] as NavItem[],
       heroTitle: "Создай своё будущее вместе с нами",
       heroSubtitle: "Современное образование, практические навыки и успешная карьера",
-      heroContactButton: "Контакты",
+      heroPrimaryButton: "Подать документы",
+      heroSecondaryButton: "Смотреть специальности",
+      admissionTitle: "Правила поступления",
+      admission: [
+        "Прием документов: 20 июня - 25 августа",
+        "Заявку можно подать онлайн и офлайн",
+        "Доступны консультации по гранту и платному отделению",
+      ],
+      studentLifeTitle: "Студенческая жизнь",
+      studentLifeText:
+        "Клубы, волонтерские проекты, профессиональные конкурсы и стажировки у партнеров помогают студентам развиваться комплексно.",
+      contactsTitle: "Свяжитесь с нами",
+      contacts: {
+        phone: "+7 (700) 123-45-67",
+        email: "info@ksit-college.kz",
+        address: "г. Талдыкорган, образовательный район 12",
+      },
       stats: [
         { value: "20+", label: "лет опыта" },
         { value: "15", label: "специальностей" },
         { value: "2000+", label: "студентов" },
         { value: "96%", label: "трудоустройство" },
-      ],
-      chooseUsTitle: "Каждый студент всегда в центре внимания",
-      chooseUsFeatures: [
-        {
-          icon: "✓",
-          title: "Качественное образование",
-          description: "востребованные выпускники, способные к саморазвитию",
-        },
-        {
-          icon: "✈",
-          title: "Стажировка зарубежом",
-          description: "развитие навыков межкультурной коммуникации",
-        },
-        {
-          icon: "★",
-          title: "100% трудоустройство",
-          description: "конкурентоспособные выпускники для работодателей",
-        },
-        {
-          icon: "↑",
-          title: "Профессиональный рост",
-          description: "возможность карьерного роста",
-        },
-      ],
-      aboutTitle: "О нас",
-      aboutText:
-        "Колледж готовит конкурентоспособных специалистов, востребованных на рынке труда. Мы объединяем современную теоретическую подготовку с практическим опытом, формируя профессионалов для реальной экономики.",
-      aboutFeatures: [
-        "🎓 Профессиональные преподаватели / Кәсіби оқытушылар",
-        "🤝 Практика в компаниях / Компанияларда тәжірибе",
-        "📜 Государственный диплом / Мемлекеттік диплом",
       ],
       programsTitle: "Наши специальности",
       programs: [
@@ -232,6 +187,7 @@ export default function Home() {
       ctaTitle: "Сделайте уверенный шаг к карьере",
       ctaSubtitle: "Прием открыт. Начните путь к успешному будущему уже сегодня.",
       ctaButton: "Подать заявку",
+      footer: "© 2026 Колледж сервиса и туризма. Все права защищены.",
     },
   } as const;
 
@@ -239,6 +195,7 @@ export default function Home() {
 
   return (
     <div
+      id="home"
       style={{
         fontFamily:
           '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
@@ -247,31 +204,10 @@ export default function Home() {
         minHeight: "100vh",
       }}
     >
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes revealUp {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        .reveal-section {
-          opacity: 0;
-          transform: translateY(40px);
-        }
-
-        .reveal-section.is-visible {
-          animation: revealUp 0.7s ease-out forwards;
-        }
-      `}</style>
-      <div style={{ animation: "fadeIn 0.6s ease-out" }}>
       <nav
         style={{
-          backgroundColor: "#ffffff",
-          color: "#000000",
+          backgroundColor: "#0f2a66",
+          color: "#ffffff",
           padding: "18px 0",
           boxShadow: "0 4px 16px rgba(15, 42, 102, 0.25)",
         }}
@@ -289,65 +225,25 @@ export default function Home() {
             flexWrap: "wrap",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              fontSize: "24px",
-              fontWeight: 700,
-              letterSpacing: "0.2px",
-            }}
-          >
-            <img src="/logo_college_1png.png" alt="College logo" style={{ height: "50px", width: "auto" }} />
-            <span>{t.logo}</span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              gap: "20px",
-              flexWrap: "wrap",
-              flex: "1 1 560px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                gap: "16px",
-                fontSize: "15px",
-                fontWeight: 500,
-                flexWrap: "wrap",
-                justifyContent: "center",
-              }}
-            >
+          <div style={{ fontSize: "24px", fontWeight: 700, letterSpacing: "0.2px" }}>{t.logo}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: "26px", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: "20px", fontSize: "15px", fontWeight: 500 }}>
               {t.nav.map((link) => (
-                <a
-                  key={link}
-                  href={link === "Мамандықтар" || link === "Специальности" ? "/programs" : "#"}
-                  style={{
-                    color: "#000000",
-                    textDecoration: "none",
-                    border: "1px solid #1e3a8a",
-                    borderRadius: "20px",
-                    padding: "6px 14px",
-                  }}
-                >
-                  {link}
+                <a key={link.label} href={link.href} style={{ color: "#ffffff", textDecoration: "none" }}>
+                  {link.label}
                 </a>
               ))}
             </div>
             <button
               onClick={() => setLanguage(language === "kz" ? "ru" : "kz")}
               style={{
-                border: "1px solid #1f2937",
+                border: "1px solid rgba(255, 255, 255, 0.55)",
                 borderRadius: "9999px",
                 padding: "8px 14px",
                 fontSize: "13px",
                 fontWeight: 700,
-                color: "#000000",
-                backgroundColor: "transparent",
+                color: "#ffffff",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
                 cursor: "pointer",
               }}
             >
@@ -360,28 +256,19 @@ export default function Home() {
       <section
         style={{
           width: "100%",
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/orig.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          background: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%)",
           color: "#ffffff",
           padding: "96px 24px",
           textAlign: "center",
         }}
       >
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <h1
-            style={{
-              fontSize: "clamp(34px, 6vw, 52px)",
-              fontWeight: 800,
-              lineHeight: 1.1,
-              margin: "0 0 20px 0",
-            }}
-          >
+          <h1 style={{ fontSize: "52px", fontWeight: 800, lineHeight: 1.1, margin: "0 0 20px 0" }}>
             {t.heroTitle}
           </h1>
           <p
             style={{
-              fontSize: "clamp(16px, 2.4vw, 19px)",
+              fontSize: "19px",
               lineHeight: 1.7,
               maxWidth: "760px",
               margin: "0 auto 34px auto",
@@ -391,35 +278,52 @@ export default function Home() {
             {t.heroSubtitle}
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "14px", flexWrap: "wrap" }}>
-            <Link
-              href="/contact"
+            <a
+              href="#admission"
               style={{
                 textDecoration: "none",
-                border: "1px solid #ffffff",
+                display: "inline-block",
+                border: "none",
                 borderRadius: "9999px",
                 padding: "13px 28px",
                 fontSize: "16px",
                 fontWeight: 700,
-                backgroundColor: "transparent",
-                color: "#ffffff",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
+                backgroundColor: "#ffffff",
+                color: "#1e3a8a",
+                cursor: "pointer",
+                boxShadow: "0 10px 20px rgba(15, 23, 42, 0.2)",
               }}
             >
-              {t.heroContactButton}
-            </Link>
+              {t.heroPrimaryButton}
+            </a>
+            <a
+              href="/programs"
+              style={{
+                textDecoration: "none",
+                display: "inline-block",
+                border: "1px solid rgba(255, 255, 255, 0.65)",
+                borderRadius: "9999px",
+                padding: "13px 28px",
+                fontSize: "16px",
+                fontWeight: 700,
+                backgroundColor: "rgba(255, 255, 255, 0.12)",
+                color: "#ffffff",
+                cursor: "pointer",
+              }}
+            >
+              {t.heroSecondaryButton}
+            </a>
           </div>
         </div>
       </section>
 
-      <section className="reveal-section" style={{ backgroundColor: "#ffffff", padding: "58px 24px" }}>
+      <section style={{ backgroundColor: "#ffffff", padding: "58px 24px" }}>
         <div
           style={{
             maxWidth: "1100px",
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
             gap: "18px",
           }}
         >
@@ -444,131 +348,39 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        className="reveal-section"
-        style={{
-          backgroundColor: "#ffffff",
-          padding: "0 24px 72px 24px",
-          borderTop: "1px solid #f97316",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "1100px",
-            margin: "0 auto",
-            overflow: "hidden",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "#fdf6ec",
-              color: "#0f172a",
-              padding: "52px 36px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <h2 style={{ margin: 0, fontSize: "clamp(34px, 4.2vw, 50px)", lineHeight: 1.15, fontWeight: 800 }}>
-              {t.chooseUsTitle}
-            </h2>
-          </div>
-          <div style={{ backgroundColor: "#ffffff", padding: "36px 34px" }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                gap: "26px 24px",
-              }}
-            >
-              {t.chooseUsFeatures.map((feature) => (
-                <div
-                  key={feature.title}
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "none",
-                    borderRadius: "0",
-                    padding: "2px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "46px",
-                      height: "46px",
-                      borderRadius: "9999px",
-                      backgroundColor: "#f97316",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginBottom: "12px",
-                    }}
-                  >
-                    <span style={{ color: "#ffffff", fontSize: "22px", fontWeight: "bold" }}>{feature.icon}</span>
-                  </div>
-                  <h3 style={{ margin: "0 0 8px 0", fontSize: "18px", color: "#0f172a", fontWeight: 700 }}>
-                    {feature.title}
-                  </h3>
-                  <p style={{ margin: 0, color: "#475569", lineHeight: 1.6, fontSize: "15px" }}>
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="reveal-section"
-        style={{
-          backgroundColor: "#eaf4ff",
-          padding: "72px 24px",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: "980px", margin: "0 auto" }}>
-          <h2 style={{ margin: "0 0 16px 0", fontSize: "34px", color: "#0f172a" }}>{t.aboutTitle}</h2>
-          <p
-            style={{
-              margin: "0 auto 34px auto",
-              maxWidth: "860px",
-              fontSize: "18px",
-              lineHeight: 1.75,
-              color: "#334155",
-            }}
-          >
-            {t.aboutText}
-          </p>
+      <section id="programs" style={{ backgroundColor: "#f1f5f9", padding: "74px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <h2 style={{ textAlign: "center", fontSize: "34px", margin: "0 0 40px 0", color: "#0f172a" }}>
+            {t.programsTitle}
+          </h2>
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: "18px",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+              gap: "22px",
             }}
           >
-            {t.aboutFeatures.map((feature) => (
+            {t.programs.map((program) => (
               <div
-                key={feature}
+                key={program.title}
                 style={{
                   backgroundColor: "#ffffff",
-                  border: "1px solid #cfe3ff",
                   borderRadius: "16px",
-                  padding: "22px 18px",
-                  boxShadow: "0 10px 24px rgba(30, 58, 138, 0.08)",
-                  fontSize: "17px",
-                  fontWeight: 600,
-                  color: "#1e3a8a",
+                  padding: "24px",
+                  border: "1px solid #e2e8f0",
+                  boxShadow: "0 10px 24px rgba(15, 23, 42, 0.06)",
                 }}
               >
-                {feature}
+                <div style={{ fontSize: "30px", marginBottom: "12px" }}>{program.icon}</div>
+                <h3 style={{ margin: "0 0 10px 0", fontSize: "20px", color: "#0f172a" }}>{program.title}</h3>
+                <p style={{ margin: 0, color: "#475569", lineHeight: 1.7 }}>{program.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="reveal-section" style={{ backgroundColor: "#ffffff", padding: "72px 24px" }}>
+      <section style={{ backgroundColor: "#ffffff", padding: "72px 24px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <h2 style={{ textAlign: "center", fontSize: "34px", margin: "0 0 36px 0", color: "#0f172a" }}>
             {t.newsTitle}
@@ -576,7 +388,7 @@ export default function Home() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
               gap: "22px",
             }}
           >
@@ -598,7 +410,60 @@ export default function Home() {
           </div>
         </div>
       </section>
-      </div>
+
+      <section style={{ backgroundColor: "#1d4ed8", padding: "54px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", color: "#ffffff", textAlign: "center" }}>
+          <h2 style={{ margin: "0 0 12px 0", fontSize: "34px", fontWeight: 700 }}>{t.ctaTitle}</h2>
+          <p style={{ margin: "0 0 24px 0", fontSize: "18px", opacity: 0.95 }}>{t.ctaSubtitle}</p>
+          <button
+            style={{
+              border: "none",
+              borderRadius: "9999px",
+              backgroundColor: "#ffffff",
+              color: "#1d4ed8",
+              padding: "12px 28px",
+              fontSize: "16px",
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            {t.ctaButton}
+          </button>
+        </div>
+      </section>
+
+      <section id="admission" style={{ backgroundColor: "#eff6ff", padding: "64px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <h2 style={{ margin: "0 0 18px 0", fontSize: "32px", color: "#0f172a" }}>{t.admissionTitle}</h2>
+          <ul style={{ margin: 0, paddingLeft: "20px", color: "#334155", lineHeight: 1.9, fontSize: "17px" }}>
+            {t.admission.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="student-life" style={{ backgroundColor: "#ffffff", padding: "64px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <h2 style={{ margin: "0 0 14px 0", fontSize: "32px", color: "#0f172a" }}>{t.studentLifeTitle}</h2>
+          <p style={{ margin: 0, color: "#475569", fontSize: "18px", lineHeight: 1.8 }}>{t.studentLifeText}</p>
+        </div>
+      </section>
+
+      <section id="contacts" style={{ backgroundColor: "#f8fafc", padding: "64px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <h2 style={{ margin: "0 0 16px 0", fontSize: "32px", color: "#0f172a" }}>{t.contactsTitle}</h2>
+          <p style={{ margin: "0 0 8px 0", color: "#334155", fontSize: "17px" }}>{t.contacts.phone}</p>
+          <p style={{ margin: "0 0 8px 0", color: "#334155", fontSize: "17px" }}>{t.contacts.email}</p>
+          <p style={{ margin: 0, color: "#334155", fontSize: "17px" }}>{t.contacts.address}</p>
+        </div>
+      </section>
+
+      <footer style={{ backgroundColor: "#0f172a", color: "#cbd5e1", padding: "30px 24px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", textAlign: "center", fontSize: "15px" }}>
+          {t.footer}
+        </div>
+      </footer>
     </div>
   );
 }
